@@ -120,7 +120,15 @@ assign_positional_args 1 "${_positionals[@]}"
 set -euo pipefail
 IFS=$'\n\t'
 
+PI=3.14159265358979323846
+
 # Compute the B1 map
-fslmaths ${_arg_high_angle_volume} -div ${_arg_low_angle_volume} -div 2 -acos -div ${_arg_excitation_flip_angle} ${_arg_output_filename}
+fslmaths ${_arg_high_angle_volume} \
+  -div ${_arg_low_angle_volume} \
+  -div 2 \
+  -acos \
+  -div ${_arg_excitation_flip_angle} \
+  -mul 180 -div ${PI} \
+  ${_arg_output_filename}
 
 # ] <-- needed because of Argbash
